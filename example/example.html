@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <script type="text/javascript" src="knockout-3.3.0.debug.js"></script>
+    <script type="text/javascript" src="jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../dist/module.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      function ViewModel() {
+        this.shapes = ko.observableArray([
+          new kd.Circle(0, 50, 40),
+          new kd.Circle(100, 50, 40),
+          new kd.Circle(50, 100, 40), 
+          new kd.Rect(150, 150, 20, 30)
+        ]);
+      }
+      
+      var vm = new ViewModel();
+
+      ko.applyBindings(vm);
+    });
+    </script>    
+    <link rel="stylesheet" href="../style/kd.css" />
+  </head>
+  <body>
+    <svg height="300" width="300">
+      <!-- ko foreach: shapes -->
+        <!-- ko component: type -->
+        <!-- /ko -->
+      <!-- /ko -->
+    </svg>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+
+svg circle.kd, svg rect.kd {
+  stroke: black;
+  stroke-width: 2px;
+  fill: white;
+}
