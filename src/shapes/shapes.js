@@ -1,57 +1,44 @@
 
-import { info as circleInfo } from "./circle"
-import { info as rectInfo } from "./rect"
+import Circle from "./circle"
+import Rect from "./rect"
+
+import { parseSvgFragment } from "../utils-svg"
 
 import "./shape-drag"
 
+function all() { return [Circle, Rect]; }
 
-function all() { return [circleInfo, rectInfo]; }
+// Register our own template engine that supports svg. This is similar to the
+// native KO one, with the addition of svg support (the svg option
+// must be set on the template to enable svg node creation). Note that this
+// doesn't support IE8 or earlier, as it unconditionally uses node cloning
+// which isn't supported. See the KO native one for what changes are needed
+function SvgSupportedTemplateEngine() {
+  this.allowTemplateRewriting = false;
+}
 
-
-// Mapping of component name to ShapeInfo
-const components = all().reduce((map, shape) => {
-    map[shape.componentName] = shape;
-    return map;
-  }, {});
-
-
-// Register a ko component for each shape type, that binds to the view model
-// of the original element in the DOM. 
-// The component itself doesn't do much work - the custom component loader we 
-// define below does most of the leg work in terms of creating the DOM 
-// elements for each shape. Unfortunately there's no way to return an element 
-// object in the template for a component, which is why we have to define a 
-// custom component loader
-all().forEach(shape => {
-
-    ko.components.register(shape.componentName, {
-    viewModel: {
-      // Get the element that was bound as a component, and look up the vm for that
-      createViewModel: (p, componentInfo) => ko.dataFor(componentInfo.element)
-    },
-    // We use a custom component loader which doesn't use the template
-    template: "not used"
-  });
-});
-
-ko.components.loaders.unshift({
-  loadTemplate: function(name, config, callback) {
-    var shapeInfo = components[name];
-    // This isn't one of our shape components
-    if (!shapeInfo) 
-    { 
-      // Defer to the next component loader in the chain
-      return callback(null);
+SvgSupportedTemplateEngine.prototype = ko.utils.extend(new ko.templateEngine(), {
+  renderTemplateSource: function (templateSource, bindingContext, options, templateDoc) {
+    let cachedResult = templateSource.nodes();
+    if (cachedResult) {
+      return makeArray(cachedResult.cloneNode(true).childNodes);
+    } else {
+      let templateText = templateSource.text();
+      let parseFn = !options.svg ? ko.utils.parseHtmlFragment : parseSvgFragment;
+      return parseFn(templateText, templateDoc);
     }
-    
-    // Otherwise, create a new SVGElement object for the shape, 
-    // with the appropriate data-bind attribute
-    let el = document.createElementNS("http://www.w3.org/2000/svg", shapeInfo.elementName);
-    el.setAttribute("data-bind", shapeInfo.dataBindAttr + ", shapeDrag: true");
-    el.setAttribute("class", "kd");
-    return callback([el]);
   }
 });
+
+function makeArray(arr) {
+  var result = [];
+  for (let i = 0, len = arr.length; i < len; ++i) {
+    result.push(arr[i]);
+  }
+  return result;
+}
+
+ko.setTemplateEngine(new SvgSupportedTemplateEngine());
 
 export default all
 

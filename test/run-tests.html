@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tests</title>
+    <link href="../node_modules/mocha/mocha.css" rel="stylesheet" />
+  </head>
+<body>
+  <div id="mocha"></div>
+
+  <script src="../node_modules/jquery/dist/jquery.js"></script>
+  <script src="../node_modules/knockout/build/output/knockout-latest.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+
+  <script src="../dist/module.js"></script>
+  
+  <script>mocha.setup('bdd')</script>
+  <script src="template-rendering.js"></script>
+  <script src="built-in-shapes.js"></script>
+  <script>
+    mocha.checkLeaks();
+    mocha.globals(['jQuery', 'ko']);
+    var expect = chai.expect;
+    mocha.run();
+  </script>
+  
+  <!-- ------------------------ -->
+  <!-- Template rendering tests -->
+  <!-- ------------------------ -->
+  
+  <script type="text/html" id="test-shape-1">
+    <circle data-bind="attr: { cx: x, cy: y, r: 20 }" />
+  </script>
+  
+  <svg id="test1">
+    <!-- ko foreach: shapes -->
+      <g data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+  </svg>
+  
+  
+  <script type="text/html" id="test-shape-2">
+    <g>
+      <rect data-bind="attr: { x: x, y: y, width: 40, height: 20 }" />
+      <g>
+        <ellipse data-bind="attr: { cx: x() - 20, cy: y() - 20, width: 60, height: 40 }" />
+      </g>
+    </g>
+  </script>
+  
+  <svg id="test2">
+    <!-- ko foreach: shapes -->
+      <g data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+  </svg>
+  
+  
+  <!-- -------------------- -->
+  <!-- Built-in shape tests -->
+  <!-- -------------------- -->
+
+  <script type="text/html" id="circle-shape">
+    <circle data-bind="attr: {cx: cx, cy: cy, r: radius}" />
+  </script>
+  
+  <script type="text/html" id="rect-shape">
+    <rect data-bind="attr: {x: x, y: y, width: width, height: height}" />
+  </script>
+  
+  <svg id="builtInShapesOutputCircle">
+    <!-- ko foreach: shapes -->
+      <g data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+  </svg>
+  
+  <svg id="builtInShapesOutputRect">
+    <!-- ko foreach: shapes -->
+      <g data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+  </svg>
+  
+</body>
+</html>
+

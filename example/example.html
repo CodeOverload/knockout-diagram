@@ -1,10 +1,11 @@
 <html>
   <head>
-    <script type="text/javascript" src="knockout-3.3.0.debug.js"></script>
-    <script type="text/javascript" src="jquery-2.1.4.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/knockout/build/output/knockout-latest.js"></script>
     <script type="text/javascript" src="../dist/module.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
+    
       function ViewModel() {
         this.shapes = ko.observableArray([
           new kd.Circle(0, 50, 40),
@@ -22,10 +23,18 @@
     <link rel="stylesheet" href="../style/kd.css" />
   </head>
   <body>
-    <svg height="300" width="300">
+    <script type="text/html" id="circle-shape">
+      <circle data-bind="attr: {cx: cx, cy: cy, r: radius}" />
+    </script>
+    
+    <script type="text/html" id="rect-shape">
+      <rect data-bind="attr: {x: x, y: y, width: width, height: height}">Some random text here</rect>
+      <rect data-bind="attr: {x: x() + 10, y: y() + 10, width: width, height: height}" />
+    </script>
+  
+    <svg height="300" width="300" class="kd">
       <!-- ko foreach: shapes -->
-        <!-- ko component: type -->
-        <!-- /ko -->
+        <g data-bind="template: { name: templateName, svg: true }" />
       <!-- /ko -->
     </svg>
   </body>

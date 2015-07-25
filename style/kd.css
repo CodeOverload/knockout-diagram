@@ -1,5 +1,5 @@
 
-svg circle.kd, svg rect.kd {
+svg.kd circle, svg.kd rect {
   stroke: black;
   stroke-width: 2px;
   fill: white;

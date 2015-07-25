@@ -22,7 +22,7 @@ ko.bindingHandlers.shapeDrag = {
 
         let newPos = Point.fromEvent(e);
         let delta = newPos.subtract(lastPos);
-        shape.move(delta.x, delta.y);
+        shape.moveBy(delta.x, delta.y);
         lastPos = newPos;
       })
       .mouseup(() => mouseDown = false);
