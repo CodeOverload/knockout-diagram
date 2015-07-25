@@ -1,5 +1,6 @@
+"use strict";
 
-import Shape from "./shape"
+import Shape from "./shape";
 
 class Rect extends Shape {
   constructor(x, y, width, height) {

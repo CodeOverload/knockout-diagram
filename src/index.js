@@ -1,3 +1,4 @@
+"use strict";
 
 import shapes from "./shapes/shapes";
 
@@ -6,5 +7,5 @@ import shapes from "./shapes/shapes";
   // API exports:
   // Attach each shape to the public api
   shapes().forEach(shape => kd[shape.name] = shape);
-  
+
 })(window.kd = (window.kd || {}));

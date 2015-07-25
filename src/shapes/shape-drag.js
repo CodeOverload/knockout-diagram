@@ -1,24 +1,28 @@
+"use strict";
 
-import Point from "../point"
+import Point from "../point";
 
 ko.bindingHandlers.shapeDrag = {
   init: function(el, valueAccessor, allBindings, shape) {
 
-    $(el).on("dragstart", () => {
+    jQuery(el).on("dragstart", () => {
       // Prevent default FF behaviour of dragging the whole svg image
       return false;
     });
 
     let mouseDown = false;
     let lastPos = null;
-    $(el).mousedown(e => {
+    jQuery(el).mousedown(e => {
         mouseDown = true;
         lastPos = Point.fromEvent(e);
       });
 
-    $(document.body)
+    jQuery(document.body)
       .mousemove(e => {
-        if (!mouseDown) return;
+        if (!mouseDown)
+        {
+          return;
+        }
 
         let newPos = Point.fromEvent(e);
         let delta = newPos.subtract(lastPos);

@@ -1,5 +1,6 @@
+"use strict";
 
-import Shape from "./shape"
+import Shape from "./shape";
 
 class Circle extends Shape {
   constructor(cx, cy, radius) {

@@ -1,10 +1,11 @@
+"use strict";
 
-import Circle from "./circle"
-import Rect from "./rect"
+import Circle from "./circle";
+import Rect from "./rect";
 
-import { parseSvgFragment } from "../utils-svg"
+import { parseSvgFragment } from "../utils-svg";
 
-import "./shape-drag"
+import "./shape-drag";
 
 function all() { return [Circle, Rect]; }
 
@@ -17,18 +18,20 @@ function SvgSupportedTemplateEngine() {
   this.allowTemplateRewriting = false;
 }
 
-SvgSupportedTemplateEngine.prototype = ko.utils.extend(new ko.templateEngine(), {
-  renderTemplateSource: function (templateSource, bindingContext, options, templateDoc) {
-    let cachedResult = templateSource.nodes();
-    if (cachedResult) {
-      return makeArray(cachedResult.cloneNode(true).childNodes);
-    } else {
-      let templateText = templateSource.text();
-      let parseFn = !options.svg ? ko.utils.parseHtmlFragment : parseSvgFragment;
-      return parseFn(templateText, templateDoc);
+SvgSupportedTemplateEngine.prototype =
+  ko.utils.extend(new ko.templateEngine(), { // eslint-disable-line new-cap
+    renderTemplateSource: function (templateSource, bindingContext, options, templateDoc) {
+      let cachedResult = templateSource.nodes();
+      if (cachedResult) {
+        return makeArray(cachedResult.cloneNode(true).childNodes);
+      } else {
+        let templateText = templateSource.text();
+        let parseFn = !options.svg ? ko.utils.parseHtmlFragment : parseSvgFragment;
+        return parseFn(templateText, templateDoc);
+      }
     }
   }
-});
+);
 
 function makeArray(arr) {
   var result = [];
@@ -40,5 +43,5 @@ function makeArray(arr) {
 
 ko.setTemplateEngine(new SvgSupportedTemplateEngine());
 
-export default all
+export default all;
 

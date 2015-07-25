@@ -11,21 +11,28 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          "./dist/module.js": ["./src/index.js"]
+          "./dist/knockout-diagram.js": ["./src/index.js"]
         }
       }
     },
     watch: {
       scripts: {
         files: ["./src/**/*.js"],
-        tasks: ["browserify"]
+        tasks: ["eslint", "browserify"]
+      }
+    },
+    eslint: {
+      target: ["./src/**/*.js"],
+      options: {
+        globals: ["ko", "jQuery"]
       }
     }
   });
  
   grunt.loadNpmTasks("grunt-browserify");
   grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks("grunt-eslint");
  
   grunt.registerTask("default", ["watch"]);
-  grunt.registerTask("build", ["browserify"]);
+  grunt.registerTask("build", ["eslint", "browserify"]);
 };
