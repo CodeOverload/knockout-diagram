@@ -8,10 +8,10 @@
     
       function ViewModel() {
         this.shapes = ko.observableArray([
-          new kd.Circle(0, 50, 40),
-          new kd.Circle(100, 50, 40),
-          new kd.Circle(50, 100, 40), 
-          new kd.Rect(150, 150, 20, 30)
+          new kd.Circle("Test", 0, 50, 40),
+          new kd.Circle("Second", 100, 50, 40),
+          new kd.Circle("A", 50, 100, 40), 
+          new kd.Rect("B", 150, 150, 20, 30)
         ]);
       }
       
@@ -25,11 +25,17 @@
   <body>
     <script type="text/html" id="circle-shape">
       <circle data-bind="attr: {cx: cx, cy: cy, r: radius}" />
+      <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
     </script>
     
     <script type="text/html" id="rect-shape">
-      <rect data-bind="attr: {x: x, y: y, width: width, height: height}">Some random text here</rect>
-      <rect data-bind="attr: {x: x() + 10, y: y() + 10, width: width, height: height}" />
+      <rect data-bind="attr: {x: x, y: y, width: width, height: height}" />
+      <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
+    </script>
+    
+    <script type="text/html" id="diamond-shape">
+      <rect data-bind="attr: {x: x, y: y, width: width, height: height, transform: rotateTransform}" />
+      <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
     </script>
   
     <svg height="300" width="300" class="kd">

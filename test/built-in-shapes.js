@@ -5,7 +5,7 @@ describe("Built-in shapes", function() {
   
     function ViewModel() {
       this.shapes = ko.observableArray([
-        new kd.Circle(40, 50, 10)
+        new kd.Circle("A label", 40, 50, 10)
       ]);
     }
     
@@ -17,8 +17,8 @@ describe("Built-in shapes", function() {
     expect(circles.length).to.be.equal(1);
     
     var first = $(circles.get(0));
-    expect(first.attr("cx")).to.be.equal("40");
-    expect(first.attr("cy")).to.be.equal("50");
+    expect(first.attr("cx")).to.be.equal("50");
+    expect(first.attr("cy")).to.be.equal("60");
     expect(first.attr("r")).to.be.equal("10");
     expect(first.get(0).constructor.name).to.be.equal("SVGCircleElement");
     
@@ -31,7 +31,7 @@ describe("Built-in shapes", function() {
   
     function ViewModel() {
       this.shapes = ko.observableArray([
-        new kd.Rect(15, 16, 40, 50)
+        new kd.Rect("Rectangle", 15, 16, 40, 50)
       ]);
     }
     
@@ -59,7 +59,7 @@ describe("Built-in shapes", function() {
   
     function ViewModel() {
       this.shapes = ko.observableArray([
-        new kd.Diamond(15, 16, 40)
+        new kd.Diamond("Node", 15, 16, 40)
       ]);
     }
     

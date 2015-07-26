@@ -3,6 +3,7 @@
     <meta charset="utf-8">
     <title>Tests</title>
     <link href="../node_modules/mocha/mocha.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../style/kd.css" />
   </head>
 <body>
   <div id="mocha"></div>
@@ -62,29 +63,32 @@
 
   <script type="text/html" id="circle-shape">
     <circle data-bind="attr: {cx: cx, cy: cy, r: radius}" />
+    <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
   </script>
   
   <script type="text/html" id="rect-shape">
     <rect data-bind="attr: {x: x, y: y, width: width, height: height}" />
+    <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
   </script>
   
   <script type="text/html" id="diamond-shape">
-    <rect data-bind="attr: {x: x, y: y, width: width, height: height}" transform="rotate(45)" />
+    <rect data-bind="attr: {x: x, y: y, width: width, height: height, transform: rotateTransform}" />
+    <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
   </script>
   
-  <svg id="builtInShapesOutputCircle">
+  <svg id="builtInShapesOutputCircle" class="kd">
     <!-- ko foreach: shapes -->
       <g data-bind="template: { name: templateName, svg: true }" />
     <!-- /ko -->
   </svg>
   
-  <svg id="builtInShapesOutputRect">
+  <svg id="builtInShapesOutputRect" class="kd">
     <!-- ko foreach: shapes -->
       <g data-bind="template: { name: templateName, svg: true }" />
     <!-- /ko -->
   </svg>
   
-  <svg id="builtInShapesOutputDiamond">
+  <svg id="builtInShapesOutputDiamond" class="kd">
     <!-- ko foreach: shapes -->
       <g data-bind="template: { name: templateName, svg: true }" />
     <!-- /ko -->

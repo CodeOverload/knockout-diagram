@@ -5,12 +5,16 @@
  */
 class Shape {
 
-  constructor(templateName, x, y, width, height) {
+  constructor(templateName, text, x, y, width, height) {
     this.templateName = templateName;
     this.x = ko.observable(x);
     this.y = ko.observable(y);
     this.width = ko.observable(width);
     this.height = ko.observable(height);
+    this.text = ko.observable(text);
+
+    this.cx = ko.pureComputed(() => this.x() + this.width() / 2);
+    this.cy = ko.pureComputed(() => this.y() + this.height() / 2);
   }
 
   moveBy(dx, dy) {

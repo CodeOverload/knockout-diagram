@@ -3,8 +3,10 @@
 import Shape from "./shape";
 
 class Diamond extends Shape {
-  constructor(x, y, width) {
-    super("diamond-shape", x, y, width, width);
+  constructor(text, x, y, width) {
+    super("diamond-shape", text, x, y, width, width);
+
+    this.rotateTransform = ko.pureComputed(() => `rotate(45 ${this.cx()} ${this.cy()})`);
   }
 }
 
