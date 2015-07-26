@@ -1,5 +1,5 @@
 
-describe("Built in shapes", function() {
+describe("Built-in shapes", function() {
 
   it("Circle", function() {
   
@@ -47,6 +47,34 @@ describe("Built in shapes", function() {
     expect(first.attr("y")).to.be.equal("16");
     expect(first.attr("width")).to.be.equal("40");
     expect(first.attr("height")).to.be.equal("50");
+    expect(first.get(0).constructor.name).to.be.equal("SVGRectElement");
+    
+    vm.shapes()[0].moveTo(20, 10);
+    expect(first.attr("x")).to.be.equal("20");
+    expect(first.attr("y")).to.be.equal("10");
+  });
+  
+
+  it("Diamond", function() {
+  
+    function ViewModel() {
+      this.shapes = ko.observableArray([
+        new kd.Diamond(15, 16, 40)
+      ]);
+    }
+    
+    var vm = new ViewModel();
+    var outputDiv = $("#builtInShapesOutputDiamond");
+    ko.applyBindings(vm, outputDiv.get(0));
+    
+    var rects = outputDiv.find("rect");
+    expect(rects.length).to.be.equal(1);
+    
+    var first = $(rects.get(0));
+    expect(first.attr("x")).to.be.equal("15");
+    expect(first.attr("y")).to.be.equal("16");
+    expect(first.attr("width")).to.be.equal("40");
+    expect(first.attr("height")).to.be.equal("40");
     expect(first.get(0).constructor.name).to.be.equal("SVGRectElement");
     
     vm.shapes()[0].moveTo(20, 10);

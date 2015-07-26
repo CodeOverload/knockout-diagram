@@ -1,13 +1,14 @@
 "use strict";
 
 import Circle from "./circle";
+import Diamond from "./diamond";
 import Rect from "./rect";
 
 import { parseSvgFragment } from "../utils-svg";
 
 import "./shape-drag";
 
-function all() { return [Circle, Rect]; }
+function all() { return [Circle, Diamond, Rect]; }
 
 // Register our own template engine that supports svg. This is similar to the
 // native KO one, with the addition of svg support (the svg option

@@ -4,7 +4,11 @@ module.exports = function (grunt) {
       dist: {
         options: {  
           transform: [
-             ["babelify", {sourceMaps: true}]
+            ["babelify", {
+              sourceMaps: true,
+              // Use runtime transformer to include regenerator polyfill in built module
+              optional: ["runtime"]
+            }]
           ],
           browserifyOptions: {
             debug: true

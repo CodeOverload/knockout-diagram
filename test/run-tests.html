@@ -67,6 +67,10 @@
     <rect data-bind="attr: {x: x, y: y, width: width, height: height}" />
   </script>
   
+  <script type="text/html" id="diamond-shape">
+    <rect data-bind="attr: {x: x, y: y, width: width, height: height}" transform="rotate(45)" />
+  </script>
+  
   <svg id="builtInShapesOutputCircle">
     <!-- ko foreach: shapes -->
       <g data-bind="template: { name: templateName, svg: true }" />
@@ -74,6 +78,12 @@
   </svg>
   
   <svg id="builtInShapesOutputRect">
+    <!-- ko foreach: shapes -->
+      <g data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+  </svg>
+  
+  <svg id="builtInShapesOutputDiamond">
     <!-- ko foreach: shapes -->
       <g data-bind="template: { name: templateName, svg: true }" />
     <!-- /ko -->
