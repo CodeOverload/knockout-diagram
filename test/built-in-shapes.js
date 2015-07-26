@@ -17,14 +17,22 @@ describe("Built-in shapes", function() {
     expect(circles.length).to.be.equal(1);
     
     var first = $(circles.get(0));
-    expect(first.attr("cx")).to.be.equal("50");
-    expect(first.attr("cy")).to.be.equal("60");
+    expect(first.attr("cx")).to.be.equal("10");
+    expect(first.attr("cy")).to.be.equal("10");
     expect(first.attr("r")).to.be.equal("10");
     expect(first.get(0).constructor.name).to.be.equal("SVGCircleElement");
     
+    var parent = first.parent();
+    expect(parent.attr("transform")).to.be.equal("translate(40 50)");
+    expect(parent.get(0).constructor.name).to.be.equal("SVGGElement");
+    
+    var text = parent.find("text");
+    expect(text.length).to.be.equal(1);
+    expect(text.text()).to.be.equal("A label");
+    expect(text.get(0).constructor.name).to.be.equal("SVGTextElement");
+    
     vm.shapes()[0].moveTo(20, 10);
-    expect(first.attr("cx")).to.be.equal("30");
-    expect(first.attr("cy")).to.be.equal("20");
+    expect(parent.attr("transform")).to.be.equal("translate(20 10)");
   });
 
   it("Rect", function() {
@@ -43,15 +51,21 @@ describe("Built-in shapes", function() {
     expect(rects.length).to.be.equal(1);
     
     var first = $(rects.get(0));
-    expect(first.attr("x")).to.be.equal("15");
-    expect(first.attr("y")).to.be.equal("16");
     expect(first.attr("width")).to.be.equal("40");
     expect(first.attr("height")).to.be.equal("50");
     expect(first.get(0).constructor.name).to.be.equal("SVGRectElement");
     
+    var parent = first.parent();
+    expect(parent.attr("transform")).to.be.equal("translate(15 16)");
+    expect(parent.get(0).constructor.name).to.be.equal("SVGGElement");
+    
+    var text = parent.find("text");
+    expect(text.length).to.be.equal(1);
+    expect(text.text()).to.be.equal("Rectangle");
+    expect(text.get(0).constructor.name).to.be.equal("SVGTextElement");
+    
     vm.shapes()[0].moveTo(20, 10);
-    expect(first.attr("x")).to.be.equal("20");
-    expect(first.attr("y")).to.be.equal("10");
+    expect(parent.attr("transform")).to.be.equal("translate(20 10)");
   });
   
 
@@ -59,7 +73,7 @@ describe("Built-in shapes", function() {
   
     function ViewModel() {
       this.shapes = ko.observableArray([
-        new kd.Diamond("Node", 15, 16, 40)
+        new kd.Diamond("Node", 15, 20, 60)
       ]);
     }
     
@@ -67,19 +81,24 @@ describe("Built-in shapes", function() {
     var outputDiv = $("#builtInShapesOutputDiamond");
     ko.applyBindings(vm, outputDiv.get(0));
     
-    var rects = outputDiv.find("rect");
-    expect(rects.length).to.be.equal(1);
+    var polygons = outputDiv.find("polygon");
+    expect(polygons.length).to.be.equal(1);
     
-    var first = $(rects.get(0));
-    expect(first.attr("x")).to.be.equal("15");
-    expect(first.attr("y")).to.be.equal("16");
-    expect(first.attr("width")).to.be.equal("40");
-    expect(first.attr("height")).to.be.equal("40");
-    expect(first.get(0).constructor.name).to.be.equal("SVGRectElement");
+    var first = $(polygons.get(0));
+    expect(first.attr("points")).to.be.equal("0,30 30,0 60,30 30,60");
+    expect(first.get(0).constructor.name).to.be.equal("SVGPolygonElement");
+    
+    var parent = first.parent();
+    expect(parent.attr("transform")).to.be.equal("translate(15 20)");
+    expect(parent.get(0).constructor.name).to.be.equal("SVGGElement");
+    
+    var text = parent.find("text");
+    expect(text.length).to.be.equal(1);
+    expect(text.text()).to.be.equal("Node");
+    expect(text.get(0).constructor.name).to.be.equal("SVGTextElement");
     
     vm.shapes()[0].moveTo(20, 10);
-    expect(first.attr("x")).to.be.equal("20");
-    expect(first.attr("y")).to.be.equal("10");
+    expect(parent.attr("transform")).to.be.equal("translate(20 10)");
   });
   
 });

@@ -1,6 +1,11 @@
 
-svg.kd circle, svg.kd rect {
+svg.kd circle, svg.kd rect, svg.kd polygon {
   stroke: black;
   stroke-width: 2px;
   fill: white;
+}
+
+svg.kd line {
+  stroke: black;
+  stroke-width: 2px;
 }

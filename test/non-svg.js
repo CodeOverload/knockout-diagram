@@ -1,5 +1,5 @@
 
-describe("Non SVG (standard knockout)", function() {
+describe("Non-SVG (standard knockout)", function() {
   
   describe("Anonymous templates", function() {
 

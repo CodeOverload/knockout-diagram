@@ -18,6 +18,7 @@
   <script>mocha.setup('bdd')</script>
   <script src="template-rendering.js"></script>
   <script src="built-in-shapes.js"></script>
+  <script src="arcs.js"></script>
   <script src="non-svg.js"></script>
   <script>
     mocha.checkLeaks();
@@ -25,6 +26,38 @@
     var expect = chai.expect;
     mocha.run();
   </script>
+  
+  
+  <!-- --------------------------------- -->
+  <!-- Templates                         -->
+  <!-- --------------------------------- -->
+
+  <script type="text/html" id="kd-shape-circle">
+    <g data-bind="attr: { transform: tPosition }">
+      <circle data-bind="attr: { cx: xradius, cy: xradius, r: xradius }" />
+      <text data-bind="attr: { x: xradius, y: xradius }, text: text" text-anchor="middle" dy="0.3em" />
+    </g>
+  </script>
+  
+  <script type="text/html" id="kd-shape-rect">
+    <g data-bind="attr: { transform: tPosition }">
+      <rect data-bind="attr: { width: width, height: height }" />
+      <text data-bind="attr: { x: xradius, y: yradius }, text: text" text-anchor="middle" dy="0.3em" />
+    </g>
+  </script>
+  
+  <script type="text/html" id="kd-shape-diamond">
+    <g data-bind="attr: { transform: tPosition }">
+      <polygon data-bind="polygonPoints: { xfactor: width, yfactor: height, 
+                          points: '0,0.5 0.5,0 1,0.5 0.5,1'}" />
+      <text data-bind="attr: { x: xradius, y: yradius }, text: text" text-anchor="middle" dy="0.3em" />
+    </g>
+  </script>
+    
+  <script type="text/html" id="kd-arc">
+    <line data-bind="attr: { x1: pointA.x, y1: pointA.y, x2: pointB.x, y2: pointB.y }" />
+  </script>
+  
   
   <!-- ------------------------ -->
   <!-- Template rendering tests -->
@@ -60,21 +93,6 @@
   <!-- -------------------- -->
   <!-- Built-in shape tests -->
   <!-- -------------------- -->
-
-  <script type="text/html" id="circle-shape">
-    <circle data-bind="attr: {cx: cx, cy: cy, r: radius}" />
-    <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
-  </script>
-  
-  <script type="text/html" id="rect-shape">
-    <rect data-bind="attr: {x: x, y: y, width: width, height: height}" />
-    <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
-  </script>
-  
-  <script type="text/html" id="diamond-shape">
-    <rect data-bind="attr: {x: x, y: y, width: width, height: height, transform: rotateTransform}" />
-    <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
-  </script>
   
   <svg id="builtInShapesOutputCircle" class="kd">
     <!-- ko foreach: shapes -->
@@ -91,6 +109,20 @@
   <svg id="builtInShapesOutputDiamond" class="kd">
     <!-- ko foreach: shapes -->
       <g data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+  </svg>
+  
+  
+  <!-- --------- -->
+  <!-- Arc tests -->
+  <!-- --------- -->
+
+  <svg id="arcsShapeToShape" class="kd">
+    <!-- ko foreach: shapes -->
+      <g data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+    <!-- ko foreach: arcs -->
+      <g data-bind="template: { name: 'kd-arc', svg: true }" />
     <!-- /ko -->
   </svg>
   

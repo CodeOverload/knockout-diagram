@@ -7,11 +7,18 @@
     $(document).ready(function() {
     
       function ViewModel() {
+        var shapeA = new kd.Circle("Test", 0, 50, 40);
+        var shapeB = new kd.Circle("Second", 100, 50, 40);
+        var shapeC = new kd.Circle("A", 50, 160, 50);
+        var shapeD = new kd.Rect("B", 150, 150, 20, 30);
+      
         this.shapes = ko.observableArray([
-          new kd.Circle("Test", 0, 50, 40),
-          new kd.Circle("Second", 100, 50, 40),
-          new kd.Circle("A", 50, 100, 40), 
-          new kd.Rect("B", 150, 150, 20, 30)
+          shapeA, shapeB, shapeC, shapeD
+        ]);
+        
+        this.arcs = ko.observableArray([
+          new kd.Arc(shapeB.points[2], shapeD.points[0]),
+          new kd.Arc(shapeA.points[1], shapeB.points[3])
         ]);
       }
       
@@ -23,24 +30,38 @@
     <link rel="stylesheet" href="../style/kd.css" />
   </head>
   <body>
-    <script type="text/html" id="circle-shape">
-      <circle data-bind="attr: {cx: cx, cy: cy, r: radius}" />
-      <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
+    <script type="text/html" id="kd-shape-circle">
+      <g data-bind="attr: { transform: tPosition }">
+        <circle data-bind="attr: { cx: xradius, cy: xradius, r: xradius }" />
+        <text data-bind="attr: { x: xradius, y: xradius }, text: text" text-anchor="middle" dy="0.3em" />
+      </g>
     </script>
     
-    <script type="text/html" id="rect-shape">
-      <rect data-bind="attr: {x: x, y: y, width: width, height: height}" />
-      <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
+    <script type="text/html" id="kd-shape-rect">
+      <g data-bind="attr: { transform: tPosition }">
+        <rect data-bind="attr: { width: width, height: height }" />
+        <text data-bind="attr: { x: xradius, y: yradius }, text: text" text-anchor="middle" dy="0.3em" />
+      </g>
     </script>
     
-    <script type="text/html" id="diamond-shape">
-      <rect data-bind="attr: {x: x, y: y, width: width, height: height, transform: rotateTransform}" />
-      <text data-bind="attr: {x: cx, y: cy}, text: text" text-anchor="middle" dy="0.3em" />
+    <script type="text/html" id="kd-shape-diamond">
+      <g data-bind="attr: { transform: tPosition }">
+        <polygon data-bind="polygonPoints: { xfactor: width, yfactor: height, 
+                            points: '0,0.5 0.5,0 1,0.5 0.5,1'}" />
+        <text data-bind="attr: { x: xradius, y: yradius }, text: text" text-anchor="middle" dy="0.3em" />
+      </g>
+    </script>
+      
+    <script type="text/html" id="kd-arc">
+      <line data-bind="attr: { x1: pointA.x, y1: pointA.y, x2: pointB.x, y2: pointB.y }" />
     </script>
   
     <svg height="300" width="300" class="kd">
       <!-- ko foreach: shapes -->
         <g data-bind="template: { name: templateName, svg: true }" />
+      <!-- /ko -->
+      <!-- ko foreach: arcs -->
+        <g data-bind="template: { name: 'kd-arc', svg: true }" />
       <!-- /ko -->
     </svg>
   </body>
