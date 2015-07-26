@@ -8,7 +8,7 @@
   <div id="mocha"></div>
 
   <script src="../node_modules/jquery/dist/jquery.js"></script>
-  <script src="../node_modules/knockout/build/output/knockout-latest.js"></script>
+  <script src="../node_modules/knockout/build/output/knockout-latest.debug.js"></script>
   <script src="../node_modules/mocha/mocha.js"></script>
   <script src="../node_modules/chai/chai.js"></script>
 
@@ -17,6 +17,7 @@
   <script>mocha.setup('bdd')</script>
   <script src="template-rendering.js"></script>
   <script src="built-in-shapes.js"></script>
+  <script src="non-svg.js"></script>
   <script>
     mocha.checkLeaks();
     mocha.globals(['jQuery', 'ko']);
@@ -88,6 +89,34 @@
       <g data-bind="template: { name: templateName, svg: true }" />
     <!-- /ko -->
   </svg>
+  
+  
+  <!-- ------------- -->
+  <!-- Non-SVG tests -->
+  <!-- ------------- -->
+  
+  <div id="nonSvgForEach">
+    <!-- ko foreach: numbers -->
+      <span data-bind="text: $data"></span>,
+    <!-- /ko -->
+  </div>
+  
+  <script type="text/html" id="nonSvgNamedTemplateTemplate">
+    <div data-bind="text: $data"></div>
+  </script>
+  
+  <div id="nonSvgNamedTemplate1">
+    <!-- ko foreach: numbers -->
+      <span data-bind="template: { name: 'nonSvgNamedTemplateTemplate' }"></span>,
+    <!-- /ko -->
+  </div>
+  
+  <div id="nonSvgBindToNodes">
+    <!-- ko foreach: numbers -->
+      <div data-bind="template: { nodes: $data }"></div>,
+    <!-- /ko -->
+  </div>
+  
   
 </body>
 </html>
