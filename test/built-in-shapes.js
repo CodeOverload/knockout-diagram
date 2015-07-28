@@ -5,7 +5,7 @@ describe("Built-in shapes", function() {
   
     function ViewModel() {
       this.shapes = ko.observableArray([
-        new kd.Circle("A label", 40, 50, 10)
+        new kd.Circle("A label", 40, 50, 30)
       ]);
     }
     
@@ -17,9 +17,9 @@ describe("Built-in shapes", function() {
     expect(circles.length).to.be.equal(1);
     
     var first = $(circles.get(0));
-    expect(first.attr("cx")).to.be.equal("10");
-    expect(first.attr("cy")).to.be.equal("10");
-    expect(first.attr("r")).to.be.equal("10");
+    expect(first.attr("cx")).to.be.equal("30");
+    expect(first.attr("cy")).to.be.equal("30");
+    expect(first.attr("r")).to.be.equal("30");
     expect(first.get(0).constructor.name).to.be.equal("SVGCircleElement");
     
     var parent = first.parent();
@@ -39,7 +39,7 @@ describe("Built-in shapes", function() {
   
     function ViewModel() {
       this.shapes = ko.observableArray([
-        new kd.Rect("Rectangle", 15, 16, 40, 50)
+        new kd.Rect("Rectangle", 15, 16, 70, 50)
       ]);
     }
     
@@ -51,7 +51,7 @@ describe("Built-in shapes", function() {
     expect(rects.length).to.be.equal(1);
     
     var first = $(rects.get(0));
-    expect(first.attr("width")).to.be.equal("40");
+    expect(first.attr("width")).to.be.equal("70");
     expect(first.attr("height")).to.be.equal("50");
     expect(first.get(0).constructor.name).to.be.equal("SVGRectElement");
     

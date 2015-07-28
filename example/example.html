@@ -7,18 +7,24 @@
     $(document).ready(function() {
     
       function ViewModel() {
-        var shapeA = new kd.Circle("Test", 0, 50, 40);
-        var shapeB = new kd.Circle("Second", 100, 50, 40);
-        var shapeC = new kd.Circle("A", 50, 160, 50);
-        var shapeD = new kd.Rect("B", 150, 150, 20, 30);
+        var a = new kd.Circle("Test", 0, 50, 40);
+        var b = new kd.Circle("Second", 100, 50, 40);
+        var c = new kd.Circle("A", 50, 160, 50);
+        var d = new kd.Rect("B", 150, 150, 20, 30);
       
         this.shapes = ko.observableArray([
-          shapeA, shapeB, shapeC, shapeD
+          a, b, c, d
         ]);
         
         this.arcs = ko.observableArray([
-          new kd.Arc(shapeB.points[2], shapeD.points[0]),
-          new kd.Arc(shapeA.points[1], shapeB.points[3])
+          new kd.Arc(
+            new kd.End(b.points[2], kd.endStyles.Arrow), 
+            new kd.End(d.points[0], kd.endStyles.None)
+          ),
+          new kd.Arc(
+            new kd.End(a.points[1], kd.endStyles.Diamond), 
+            new kd.End(b.points[3], kd.endStyles.None)
+          )
         ]);
       }
       
@@ -30,6 +36,7 @@
     <link rel="stylesheet" href="../style/kd.css" />
   </head>
   <body>
+  
     <script type="text/html" id="kd-shape-circle">
       <g data-bind="attr: { transform: tPosition }">
         <circle data-bind="attr: { cx: xradius, cy: xradius, r: xradius }" />
@@ -51,17 +58,45 @@
         <text data-bind="attr: { x: xradius, y: yradius }, text: text" text-anchor="middle" dy="0.3em" />
       </g>
     </script>
-      
+
     <script type="text/html" id="kd-arc">
-      <line data-bind="attr: { x1: pointA.x, y1: pointA.y, x2: pointB.x, y2: pointB.y }" />
+      <line class="kd-arc-line" data-bind="attr: { x1: endA.point().x, y1: endA.point().y, 
+                                                   x2: endB.point().x, y2: endB.point().y }" />
+     
+      <!-- ko with: endA -->
+        <g data-bind="template: { name: style().templateName, svg: true }, 
+                      attr: { class: 'kd-arc-end ' + style().templateName, 
+                              transform: tMove() + ' ' + $parent.tRotateEndA() }" />
+      <!-- /ko -->
+      
+      <!-- ko with: endB -->
+        <g data-bind="template: { name: style().templateName, svg: true }, 
+                      attr: { class: 'kd-arc-end ' + style().templateName, 
+                              transform: tMove() + ' ' + $parent.tRotateEndB() }" />
+      <!-- /ko -->
     </script>
+    
+    <script type="text/html" id="kd-arc-end-none"></script>
+    
+    <script type="text/html" id="kd-arc-end-arrow">
+      <polygon data-bind="polygonPoints: { xfactor: 8, yfactor: 4, points: '0,0 -1,1 -1,-1'}" />
+    </script>
+    
+    <script type="text/html" id="kd-arc-end-circle">
+      <circle cx="-4" cy="0" r="4" />
+    </script>
+    
+    <script type="text/html" id="kd-arc-end-diamond">
+      <polygon data-bind="polygonPoints: { xfactor: 16, yfactor: 4, points: '0,0 -0.5,1 -1,0 -0.5,-1'}" />
+    </script>
+    
   
     <svg height="300" width="300" class="kd">
       <!-- ko foreach: shapes -->
-        <g data-bind="template: { name: templateName, svg: true }" />
+        <g class="kd-shape" data-bind="template: { name: templateName, svg: true }" />
       <!-- /ko -->
       <!-- ko foreach: arcs -->
-        <g data-bind="template: { name: 'kd-arc', svg: true }" />
+        <g class="kd-arc" data-bind="template: { name: 'kd-arc', svg: true }" />
       <!-- /ko -->
     </svg>
   </body>

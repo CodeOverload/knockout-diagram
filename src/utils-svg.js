@@ -9,9 +9,17 @@ function convertSvgNode(node, templateDoc) {
     el.setAttribute(attr.nodeName, attr.value);
   }
 
-  for (let child of iterateDomNodes(node.childNodes, 1)) {
-    let childEl = convertSvgNode(child, templateDoc);
-    el.appendChild(childEl);
+  for (let child of iterateDomNodes(node.childNodes)) {
+    switch (child.nodeType) {
+    case Node.ELEMENT_NODE:
+      let childEl = convertSvgNode(child, templateDoc);
+      el.appendChild(childEl);
+      break;
+    case Node.COMMENT_NODE:
+      let commentEl = templateDoc.createComment(child.nodeValue);
+      el.appendChild(commentEl);
+      break;
+    }
   }
 
   return el;

@@ -1,11 +1,18 @@
 
-svg.kd circle, svg.kd rect, svg.kd polygon {
+svg.kd .kd-shape circle, 
+svg.kd .kd-shape rect, 
+svg.kd .kd-shape polygon {
   stroke: black;
   stroke-width: 2px;
   fill: white;
 }
 
-svg.kd line {
+svg.kd .kd-arc line.kd-arc-line {
   stroke: black;
   stroke-width: 2px;
+}
+
+svg.kd .kd-arc .kd-arc-end polygon, 
+svg.kd .kd-arc .kd-arc-end circle {
+  fill: black;
 }
