@@ -14,7 +14,7 @@
   <script src="../node_modules/chai/chai.js"></script>
 
   <script src="../dist/knockout-diagram.js"></script>
-  
+
   <script>mocha.setup('bdd')</script>
   <script src="template-rendering.js"></script>
   <script src="built-in-shapes.js"></script>
@@ -26,8 +26,8 @@
     var expect = chai.expect;
     mocha.run();
   </script>
-  
-  
+
+
   <!-- --------------------------------- -->
   <!-- Templates                         -->
   <!-- --------------------------------- -->
@@ -38,69 +38,69 @@
       <text data-bind="attr: { x: xradius, y: xradius }, text: text" text-anchor="middle" dy="0.3em" />
     </g>
   </script>
-  
+
   <script type="text/html" id="kd-shape-rect">
     <g data-bind="attr: { transform: tPosition }">
       <rect data-bind="attr: { width: width, height: height }" />
       <text data-bind="attr: { x: xradius, y: yradius }, text: text" text-anchor="middle" dy="0.3em" />
     </g>
   </script>
-  
+
   <script type="text/html" id="kd-shape-diamond">
     <g data-bind="attr: { transform: tPosition }">
-      <polygon data-bind="polygonPoints: { xfactor: width, yfactor: height, 
+      <polygon data-bind="polygonPoints: { xfactor: width, yfactor: height,
                           points: '0,0.5 0.5,0 1,0.5 0.5,1'}" />
       <text data-bind="attr: { x: xradius, y: yradius }, text: text" text-anchor="middle" dy="0.3em" />
     </g>
   </script>
 
   <script type="text/html" id="kd-arc">
-    <line class="kd-arc-line" data-bind="attr: { x1: endA.point().x, y1: endA.point().y, 
+    <line class="kd-arc-line" data-bind="attr: { x1: endA.point().x, y1: endA.point().y,
                                                  x2: endB.point().x, y2: endB.point().y }" />
-   
+
     <!-- ko with: endA -->
-      <g data-bind="template: { name: style().templateName, svg: true }, 
-                    attr: { class: 'kd-arc-end ' + style().templateName, 
+      <g data-bind="template: { name: style().templateName, svg: true },
+                    attr: { class: 'kd-arc-end ' + style().templateName,
                             transform: tMove() + ' ' + $parent.tRotateEndA() }" />
     <!-- /ko -->
-    
+
     <!-- ko with: endB -->
-      <g data-bind="template: { name: style().templateName, svg: true }, 
-                    attr: { class: 'kd-arc-end ' + style().templateName, 
+      <g data-bind="template: { name: style().templateName, svg: true },
+                    attr: { class: 'kd-arc-end ' + style().templateName,
                             transform: tMove() + ' ' + $parent.tRotateEndB() }" />
     <!-- /ko -->
   </script>
-  
+
   <script type="text/html" id="kd-arc-end-none"></script>
-  
+
   <script type="text/html" id="kd-arc-end-arrow">
     <polygon data-bind="polygonPoints: { xfactor: 8, yfactor: 4, points: '0,0 -1,1 -1,-1'}" />
   </script>
-  
+
   <script type="text/html" id="kd-arc-end-circle">
     <circle cx="-4" cy="0" r="4" />
   </script>
-  
+
   <script type="text/html" id="kd-arc-end-diamond">
     <polygon data-bind="polygonPoints: { xfactor: 16, yfactor: 4, points: '0,0 -0.5,1 -1,0 -0.5,-1'}" />
   </script>
-  
-  
+
+
   <!-- ------------------------ -->
   <!-- Template rendering tests -->
   <!-- ------------------------ -->
-  
+
   <script type="text/html" id="test-shape-1">
     <circle data-bind="attr: { cx: x, cy: y, r: 20 }" />
   </script>
-  
+
   <svg id="test1">
     <!-- ko foreach: shapes -->
       <g data-bind="template: { name: templateName, svg: true }" />
     <!-- /ko -->
   </svg>
-  
-  
+
+
   <script type="text/html" id="test-shape-2">
     <g>
       <rect data-bind="attr: { x: x, y: y, width: 40, height: 20 }" />
@@ -109,37 +109,55 @@
       </g>
     </g>
   </script>
-  
+
   <svg id="test2">
     <!-- ko foreach: shapes -->
       <g data-bind="template: { name: templateName, svg: true }" />
     <!-- /ko -->
   </svg>
-  
-  
+
+
   <!-- -------------------- -->
   <!-- Built-in shape tests -->
   <!-- -------------------- -->
-  
+
   <svg id="builtInShapesOutputCircle" class="kd">
     <!-- ko foreach: shapes -->
       <g class="kd-shape" data-bind="template: { name: templateName, svg: true }" />
     <!-- /ko -->
   </svg>
-  
+
+  <svg id="builtInShapesOutputCircleSupportsObservables" class="kd">
+    <!-- ko foreach: shapes -->
+      <g class="kd-shape" data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+  </svg>
+
   <svg id="builtInShapesOutputRect" class="kd">
     <!-- ko foreach: shapes -->
       <g class="kd-shape" data-bind="template: { name: templateName, svg: true }" />
     <!-- /ko -->
   </svg>
-  
+
+  <svg id="builtInShapesOutputRectSupportsObservables" class="kd">
+    <!-- ko foreach: shapes -->
+      <g class="kd-shape" data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+  </svg>
+
   <svg id="builtInShapesOutputDiamond" class="kd">
     <!-- ko foreach: shapes -->
       <g class="kd-shape" data-bind="template: { name: templateName, svg: true }" />
     <!-- /ko -->
   </svg>
-  
-  
+
+  <svg id="builtInShapesOutputDiamondSupportsObservables" class="kd">
+    <!-- ko foreach: shapes -->
+      <g class="kd-shape" data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+  </svg>
+
+
   <!-- --------- -->
   <!-- Arc tests -->
   <!-- --------- -->
@@ -161,35 +179,44 @@
       <g class="kd-arc" data-bind="template: { name: 'kd-arc', svg: true }" />
     <!-- /ko -->
   </svg>
-  
-  
+
+  <svg id="arcSupportsObservables" class="kd">
+    <!-- ko foreach: shapes -->
+      <g class="kd-shape" data-bind="template: { name: templateName, svg: true }" />
+    <!-- /ko -->
+    <!-- ko foreach: arcs -->
+      <g class="kd-arc" data-bind="template: { name: 'kd-arc', svg: true }" />
+    <!-- /ko -->
+  </svg>
+
+
   <!-- ------------- -->
   <!-- Non-SVG tests -->
   <!-- ------------- -->
-  
+
   <div id="nonSvgForEach">
     <!-- ko foreach: numbers -->
       <span data-bind="text: $data"></span>,
     <!-- /ko -->
   </div>
-  
+
   <script type="text/html" id="nonSvgNamedTemplateTemplate">
     <div data-bind="text: $data"></div>
   </script>
-  
+
   <div id="nonSvgNamedTemplate1">
     <!-- ko foreach: numbers -->
       <span data-bind="template: { name: 'nonSvgNamedTemplateTemplate' }"></span>,
     <!-- /ko -->
   </div>
-  
+
   <div id="nonSvgBindToNodes">
     <!-- ko foreach: numbers -->
       <div data-bind="template: { nodes: $data }"></div>,
     <!-- /ko -->
   </div>
-  
-  
+
+
 </body>
 </html>
 

@@ -1,9 +1,11 @@
 "use strict";
 
+import { wrapObservable } from "../ko/utils-ko";
+
 class End {
   constructor(point, style) {
-    this.point = ko.observable(point);
-    this.style = ko.observable(style);
+    this.point = wrapObservable(point);
+    this.style = wrapObservable(style);
 
     this.tMove = ko.pureComputed(
       () => `translate(${this.point().x()} ${this.point().y()})`);

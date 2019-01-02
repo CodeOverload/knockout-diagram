@@ -1,6 +1,7 @@
 "use strict";
 
 import ShapePoint from "./shape-point";
+import { wrapObservable } from "../ko/utils-ko";
 
 /**
  * Base class for all shapes
@@ -11,13 +12,13 @@ class Shape {
     this.templateName = templateName;
 
     // Top left point of the shape
-    this.x = ko.observable(x);
-    this.y = ko.observable(y);
+    this.x = wrapObservable(x);
+    this.y = wrapObservable(y);
 
-    this.width = ko.observable(width);
-    this.height = ko.observable(height);
+    this.width = wrapObservable(width);
+    this.height = wrapObservable(height);
 
-    this.text = ko.observable(text);
+    this.text = wrapObservable(text);
 
     // Distance from the left/top edge to the center
     this.xradius = ko.pureComputed(() => this.width() / 2);
@@ -26,7 +27,7 @@ class Shape {
     this.tPosition = ko.pureComputed(() => `translate(${this.x()} ${this.y()})`);
 
     // The connection points for different shapes will differ, but
-    // for now, just define the standard set here
+    // for now, define the standard set here
     this.points = [
       new ShapePoint(this, () => this.xradius(), () => 0), // North
       new ShapePoint(this, () => this.width(), () => this.yradius()), // East
