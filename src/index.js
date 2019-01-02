@@ -2,6 +2,8 @@
 
 import shapes from "./shapes/shapes";
 
+import Point from "./point";
+
 import Arc from "./arcs/arc";
 import End from "./arcs/end";
 
@@ -15,6 +17,8 @@ import "./ko/polygon-points";
   // API exports:
   // Attach each shape to the public api
   shapes().forEach(shape => kd[shape.name] = shape);
+
+  kd.Point = Point;
 
   kd.Arc = Arc;
   kd.End = End;

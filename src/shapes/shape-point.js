@@ -1,11 +1,15 @@
 "use strict";
 
-import Point from "../point";
-
-class ShapePoint extends Point {
+class ShapePoint {
 
   constructor(shape, x, y) {
-    super(() => x() + shape.x(), () => y() + shape.y());
+    if (typeof x === "function") {
+      this.x = ko.pureComputed(() => x() + shape.x());
+      this.y = ko.pureComputed(() => y() + shape.y());
+    }
+    else {
+      throw new Error("Unsupported x value");
+    }
     this.shape = shape;
   }
 }

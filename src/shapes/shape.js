@@ -1,5 +1,6 @@
 "use strict";
 
+import Point from "../point";
 import ShapePoint from "./shape-point";
 import { wrapObservable } from "../ko/utils-ko";
 
@@ -44,6 +45,10 @@ class Shape {
   moveTo(x, y) {
     this.x(x);
     this.y(y);
+  }
+
+  get center() {
+    return new Point(this.x() + this.xradius(), this.y() + this.yradius());
   }
 }
 
