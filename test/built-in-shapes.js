@@ -65,6 +65,29 @@ describe("Built-in shapes", function() {
     expect(text.text()).to.be.equal("A label");
   });
 
+  it("Circle points are positioned correctly", function() {
+    var circle = new kd.Circle("A label", 10, 30, 20);
+
+    var points = circle.points;
+
+    // Only spot-check 4 of the points
+    var east = points[0];
+    expect(east.x()).to.be.closeTo(50, 0.0000001);
+    expect(east.y()).to.be.closeTo(50, 0.0000001);
+
+    var south = points[4];
+    expect(south.x()).to.be.closeTo(30, 0.0000001);
+    expect(south.y()).to.be.closeTo(70, 0.0000001);
+
+    var west = points[8];
+    expect(west.x()).to.be.closeTo(10, 0.0000001);
+    expect(west.y()).to.be.closeTo(50, 0.0000001);
+
+    var north = points[12];
+    expect(north.x()).to.be.closeTo(30, 0.0000001);
+    expect(north.y()).to.be.closeTo(30, 0.0000001);
+  });
+
   it("Rect", function() {
 
     function ViewModel() {

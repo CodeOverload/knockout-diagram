@@ -14,7 +14,7 @@ describe("Arcs", function() {
 
       this.arcs = ko.observableArray([
         new kd.Arc(
-          new kd.End(circle.points[1], kd.endStyles.Arrow),
+          new kd.End(circle.points[0], kd.endStyles.Arrow),
           new kd.End(diamond.points[3], kd.endStyles.Diamond)
         ),
         new kd.Arc(
@@ -67,16 +67,16 @@ describe("Arcs", function() {
 
       this.arcs = ko.observableArray([
         new kd.Arc(
-          new kd.End(a.points[3], kd.endStyles.Arrow),
-          new kd.End(b.points[0], kd.endStyles.Arrow)
+          new kd.End(a.points[8], kd.endStyles.Arrow),
+          new kd.End(b.points[12], kd.endStyles.Arrow)
         ),
         new kd.Arc(
-          new kd.End(a.points[1], kd.endStyles.Arrow),
-          new kd.End(c.points[0], kd.endStyles.Diamond)
+          new kd.End(a.points[0], kd.endStyles.Arrow),
+          new kd.End(c.points[12], kd.endStyles.Diamond)
         ),
         new kd.Arc(
-          new kd.End(d.points[0], kd.endStyles.Arrow),
-          new kd.End(a.points[2], kd.endStyles.Diamond)
+          new kd.End(d.points[12], kd.endStyles.Arrow),
+          new kd.End(a.points[4], kd.endStyles.Diamond)
         )
       ]);
     }
@@ -118,7 +118,7 @@ describe("Arcs", function() {
         circle, diamond, rect
       ]);
 
-      this.end1 = ko.observable(circle.points[1]);
+      this.end1 = ko.observable(circle.points[0]);
       this.end2 = ko.observable(diamond.points[3]);
 
       this.arcs = ko.observableArray([
@@ -155,15 +155,15 @@ describe("Arcs", function() {
 });
 
 function checkEnd(el, x, y, angle2dp) {
-  var pattern = /translate\(([0-9]+) ([0-9]+)\) rotate\((-?[\\.0-9]+)\)/;
+  var pattern = /translate\((-?[\\.0-9]+) (-?[\\.0-9]+)\) rotate\((-?[\\.0-9]+)\)/;
   var transform = $(el).attr("transform");
   expect(transform).to.match(pattern);
 
   var parts = transform.match(pattern);
   var ax = parts[1], ay = parts[2], aangle = parts[3];
 
-  expect("" + x).to.be.equal(ax);
-  expect("" + y).to.be.equal(ay);
+  expect(x).to.be.closeTo(parseFloat(ax), 0.0000001);
+  expect(y).to.be.closeTo(parseFloat(ay), 0.0000001);
   // Just check to 2dp - that's more than sufficient to check
   // that the calculations are correct
   expect(angle2dp.toFixed(2))

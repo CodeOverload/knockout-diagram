@@ -27,9 +27,11 @@ class Shape {
 
     this.tPosition = ko.pureComputed(() => `translate(${this.x()} ${this.y()})`);
 
-    // The connection points for different shapes will differ, but
-    // for now, define the standard set here
-    this.points = [
+    this.points = this.createPoints();
+  }
+
+  createPoints() {
+    return [
       new ShapePoint(this, () => this.xradius(), () => 0), // North
       new ShapePoint(this, () => this.width(), () => this.yradius()), // East
       new ShapePoint(this, () => this.xradius(), () => this.height()), // South
