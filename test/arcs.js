@@ -5,7 +5,7 @@ describe("Arcs", function() {
 
     function ViewModel() {
       var circle = new kd.Circle("Start", 10, 0, 40);
-      var diamond = new kd.Diamond("You rang?", 130, 0, 80);
+      var diamond = new kd.Diamond("You rang?", 130, 0, 80, 100);
       var rect = new kd.Rect("Finish", 130, 110, 80, 30);
 
       this.shapes = ko.observableArray([
@@ -35,12 +35,12 @@ describe("Arcs", function() {
     expect(first.attr("x1")).to.be.equal("90");
     expect(first.attr("y1")).to.be.equal("40");
     expect(first.attr("x2")).to.be.equal("130");
-    expect(first.attr("y2")).to.be.equal("40");
+    expect(first.attr("y2")).to.be.equal("50");
     expect(first.get(0).constructor.name).to.be.equal("SVGLineElement");
 
     var second = $(arcs.get(1));
     expect(second.attr("x1")).to.be.equal("170");
-    expect(second.attr("y1")).to.be.equal("80");
+    expect(second.attr("y1")).to.be.equal("100");
     expect(second.attr("x2")).to.be.equal("170");
     expect(second.attr("y2")).to.be.equal("110");
     expect(second.get(0).constructor.name).to.be.equal("SVGLineElement");
@@ -51,7 +51,7 @@ describe("Arcs", function() {
     expect(first.attr("x1")).to.be.equal("100");
     expect(first.attr("y1")).to.be.equal("60");
     expect(first.attr("x2")).to.be.equal("130");
-    expect(first.attr("y2")).to.be.equal("40");
+    expect(first.attr("y2")).to.be.equal("50");
   });
 
 
@@ -111,7 +111,7 @@ describe("Arcs", function() {
 
     function ViewModel() {
       var circle = this.circle = new kd.Circle("Start", 10, 0, 40);
-      var diamond = this.diamond = new kd.Diamond("You rang?", 130, 0, 80);
+      var diamond = this.diamond = new kd.Diamond("You rang?", 130, 0, 80, 120);
       var rect = this.rect = new kd.Rect("Finish", 130, 110, 80, 30);
 
       this.shapes = ko.observableArray([
@@ -140,14 +140,14 @@ describe("Arcs", function() {
     expect(first.attr("x1")).to.be.equal("90");
     expect(first.attr("y1")).to.be.equal("40");
     expect(first.attr("x2")).to.be.equal("130");
-    expect(first.attr("y2")).to.be.equal("40");
+    expect(first.attr("y2")).to.be.equal("60");
 
     // Change the arc to span from different points, and check
     // the attributes are changed as expected
     vm.end1(vm.diamond.points[2]);
     vm.end2(vm.rect.points[0]);
     expect(first.attr("x1")).to.be.equal("170");
-    expect(first.attr("y1")).to.be.equal("80");
+    expect(first.attr("y1")).to.be.equal("120");
     expect(first.attr("x2")).to.be.equal("170");
     expect(first.attr("y2")).to.be.equal("110");
   });

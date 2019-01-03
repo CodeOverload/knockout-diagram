@@ -9,9 +9,7 @@ const ANGLE_BETWEEN_POINTS = Math.PI / (NUM_POINTS / 2);
 class Circle extends Shape {
   constructor(text, x, y, radius) {
     const width = ko.utils.unwrapObservable(radius) * 2;
-    super("kd-shape-circle", text, x, y, width, width);
-
-    this.height = this.width;
+    super(true, "kd-shape-circle", text, x, y, width, null);
   }
 
   createPoints() {

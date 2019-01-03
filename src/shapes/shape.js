@@ -9,7 +9,8 @@ import { wrapObservable } from "../ko/utils-ko";
  */
 class Shape {
 
-  constructor(templateName, text, x, y, width, height) {
+  constructor(equilateral, templateName, text, x, y, width, height) {
+    this.equilateral = equilateral;
     this.templateName = templateName;
 
     // Top left point of the shape
@@ -17,7 +18,7 @@ class Shape {
     this.y = wrapObservable(y);
 
     this.width = wrapObservable(width);
-    this.height = wrapObservable(height);
+    this.height = equilateral ? this.width : wrapObservable(height);
 
     this.text = wrapObservable(text);
 
@@ -39,6 +40,10 @@ class Shape {
     ];
   }
 
+  get center() {
+    return new Point(this.x() + this.xradius(), this.y() + this.yradius());
+  }
+
   moveBy(dx, dy) {
     this.x(this.x() + dx);
     this.y(this.y() + dy);
@@ -49,8 +54,21 @@ class Shape {
     this.y(y);
   }
 
-  get center() {
-    return new Point(this.x() + this.xradius(), this.y() + this.yradius());
+  widenFromCenter(delta) {
+    this.resizeFromCenter(this.x, this.width, delta, this.y);
+  }
+
+  heightenFromCenter(delta) {
+    this.resizeFromCenter(this.y, this.height, delta, this.x);
+  }
+
+  resizeFromCenter(dimension, length, delta, otherDimension) {
+    dimension(dimension() - delta);
+    length(length() + delta * 2);
+
+    if (!this.equilateral) return;
+
+    otherDimension(otherDimension() - delta);
   }
 }
 

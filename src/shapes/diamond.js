@@ -3,8 +3,8 @@
 import Shape from "./shape";
 
 class Diamond extends Shape {
-  constructor(text, x, y, width) {
-    super("kd-shape-diamond", text, x, y, width, width);
+  constructor(text, x, y, width, height) {
+    super(false, "kd-shape-diamond", text, x, y, width, height);
   }
 }
 

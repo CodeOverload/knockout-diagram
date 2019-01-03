@@ -88,6 +88,32 @@ describe("Built-in shapes", function() {
     expect(north.y()).to.be.closeTo(30, 0.0000001);
   });
 
+  it("Circle widen from center works", function() {
+    var c = new kd.Circle("C", 50, 60, 60);
+
+    c.widenFromCenter(5);
+
+    // Both the x and y should change, as the radius has changed
+    expect(c.x()).to.be.closeTo(45, 0.0000001);
+    expect(c.y()).to.be.closeTo(55, 0.0000001);
+
+    expect(c.width()).to.be.closeTo(130, 0.0000001);
+    expect(c.height()).to.be.closeTo(130, 0.0000001);
+  });
+
+  it("Circle heighten from center works", function() {
+    var c = new kd.Circle("C", 50, 60, 60);
+
+    c.heightenFromCenter(5);
+
+    // Both the x and y should change, as the radius has changed
+    expect(c.x()).to.be.closeTo(45, 0.0000001);
+    expect(c.y()).to.be.closeTo(55, 0.0000001);
+
+    expect(c.width()).to.be.closeTo(130, 0.0000001);
+    expect(c.height()).to.be.closeTo(130, 0.0000001);
+  });
+
   it("Rect", function() {
 
     function ViewModel() {
@@ -151,11 +177,35 @@ describe("Built-in shapes", function() {
     expect(text.text()).to.be.equal("Rectangle1");
   });
 
+  it("Rect widen from center works", function() {
+    var rect = new kd.Rect("Rectangle1", 10, 20, 100, 200);
+
+    rect.widenFromCenter(5);
+
+    expect(rect.x()).to.be.closeTo(5, 0.0000001);
+    expect(rect.y()).to.be.closeTo(20, 0.0000001);
+
+    expect(rect.width()).to.be.closeTo(110, 0.0000001);
+    expect(rect.height()).to.be.closeTo(200, 0.0000001);
+  });
+
+  it("Rect heighten from center works", function() {
+    var rect = new kd.Rect("Rectangle1", 10, 20, 100, 200);
+
+    rect.heightenFromCenter(5);
+
+    expect(rect.x()).to.be.closeTo(10, 0.0000001);
+    expect(rect.y()).to.be.closeTo(15, 0.0000001);
+
+    expect(rect.width()).to.be.closeTo(100, 0.0000001);
+    expect(rect.height()).to.be.closeTo(210, 0.0000001);
+  });
+
   it("Diamond", function() {
 
     function ViewModel() {
       this.shapes = ko.observableArray([
-        new kd.Diamond("Node", 15, 20, 60)
+        new kd.Diamond("Node", 15, 20, 60, 100)
       ]);
     }
 
@@ -167,7 +217,7 @@ describe("Built-in shapes", function() {
     expect(polygons.length).to.be.equal(1);
 
     var first = $(polygons.get(0));
-    expect(first.attr("points")).to.be.equal("0,30 30,0 60,30 30,60");
+    expect(first.attr("points")).to.be.equal("0,50 30,0 60,50 30,100");
     expect(first.get(0).constructor.name).to.be.equal("SVGPolygonElement");
 
     var parent = first.parent();
@@ -187,9 +237,10 @@ describe("Built-in shapes", function() {
     var x = ko.observable(12);
     var y = ko.observable(13);
     var width = ko.pureComputed(() => 20);
+    var height = ko.pureComputed(() => 60);
     function ViewModel() {
       this.shapes = ko.observableArray([
-        new kd.Diamond("Node2", x, y, width)
+        new kd.Diamond("Node2", x, y, width, height)
       ]);
     }
 
@@ -201,7 +252,7 @@ describe("Built-in shapes", function() {
     expect(polygons.length).to.be.equal(1);
 
     var first = $(polygons.get(0));
-    expect(first.attr("points")).to.be.equal("0,10 10,0 20,10 10,20");
+    expect(first.attr("points")).to.be.equal("0,30 10,0 20,30 10,60");
 
     var parent = first.parent();
     expect(parent.attr("transform")).to.be.equal("translate(12 13)");
@@ -213,6 +264,30 @@ describe("Built-in shapes", function() {
 
     vm.shapes()[0].moveTo(20, 10);
     expect(parent.attr("transform")).to.be.equal("translate(20 10)");
+  });
+
+  it("Diamond widen from center works", function() {
+    var diamond = new kd.Diamond("Diamond", 10, 20, 100, 200);
+
+    diamond.widenFromCenter(5);
+
+    expect(diamond.x()).to.be.closeTo(5, 0.0000001);
+    expect(diamond.y()).to.be.closeTo(20, 0.0000001);
+
+    expect(diamond.width()).to.be.closeTo(110, 0.0000001);
+    expect(diamond.height()).to.be.closeTo(200, 0.0000001);
+  });
+
+  it("Diamond heighten from center works", function() {
+    var diamond = new kd.Diamond("Diamond", 10, 20, 100, 200);
+
+    diamond.heightenFromCenter(5);
+
+    expect(diamond.x()).to.be.closeTo(10, 0.0000001);
+    expect(diamond.y()).to.be.closeTo(15, 0.0000001);
+
+    expect(diamond.width()).to.be.closeTo(100, 0.0000001);
+    expect(diamond.height()).to.be.closeTo(210, 0.0000001);
   });
 
 });
