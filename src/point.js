@@ -1,5 +1,3 @@
-"use strict";
-
 function snapCoordinate(c, size) {
   return Math.round(c / size) * size;
 }

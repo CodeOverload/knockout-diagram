@@ -1,4 +1,5 @@
-"use strict";
+import jQuery from 'jquery';
+import * as ko from "knockout";
 
 // Register a binding handler to make it easier to define polygons using
 // percentage coords. We can achieve the same using svg scaling /

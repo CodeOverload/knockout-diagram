@@ -1,4 +1,4 @@
-"use strict";
+import * as ko from "knockout";
 
 import Point from "../point";
 import ShapePoint from "./shape-point";

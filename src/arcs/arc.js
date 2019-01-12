@@ -1,4 +1,4 @@
-"use strict";
+import * as ko from "knockout";
 
 function calcAngle(point1, point2) {
   let dx = point1.x() - point2.x();

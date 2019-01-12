@@ -1,4 +1,4 @@
-"use strict";
+import * as ko from "knockout";
 
 class ShapePoint {
 

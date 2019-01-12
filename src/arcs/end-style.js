@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Represents the style of an endpoint. Most endpoints
  * will be rendered entirely using templates, so this class

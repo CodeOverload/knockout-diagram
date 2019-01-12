@@ -1,6 +1,6 @@
-"use strict";
-
-import shapes from "./shapes/shapes";
+import Circle from "./shapes/circle";
+import Diamond from "./shapes/diamond";
+import Rect from "./shapes/rect";
 
 import Point from "./point";
 
@@ -12,16 +12,9 @@ import endStyles from "./arcs/end-styles";
 import "./ko/svg-engine";
 import "./ko/polygon-points";
 
-(function(kd) {
+const ends = endStyles();
 
-  // API exports:
-  // Attach each shape to the public api
-  shapes().forEach(shape => kd[shape.name] = shape);
-
-  kd.Point = Point;
-
-  kd.Arc = Arc;
-  kd.End = End;
-  kd.endStyles = endStyles();
-
-})(window.kd = (window.kd || {}));
+export { Point, Arc, End,
+  ends as endStyles,
+  Circle, Diamond, Rect
+};

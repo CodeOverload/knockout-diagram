@@ -1,4 +1,4 @@
-"use strict";
+import * as ko from "knockout";
 
 import { wrapObservable } from "../ko/utils-ko";
 

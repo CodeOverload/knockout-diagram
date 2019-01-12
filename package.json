@@ -1,24 +1,22 @@
 {
-  "name": "knockout-diagram",
+  "name": "kodiagram",
   "version": "0.1.0",
   "description": "A set of components to create svg diagrams using knockout",
-  "main": "index.js",
+  "private": true,
+  "main": "dist/kodiagram.umd.js",
+  "module": "dist/kodiagram.esm.js",
   "author": "Neil Herald",
   "license": "MIT",
   "scripts": {
-    "install": "grunt build"
+    "build": "rollup -c",
+    "build:watch": "rollup -c --watch"
   },
   "devDependencies": {
-    "babel-eslint": "^4.0.5",
-    "babel-runtime": "^5.8.5",
-    "babelify": "^6.1.3",
     "chai": "^3.2.0",
-    "eslint": "^0.24.1",
-    "grunt": "^0.4.5",
-    "grunt-browserify": "^3.8.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-eslint": "^16.0.0",
     "jquery": "^2.1.4",
-    "knockout": "^3.3.0"
+    "knockout": "^3.3.0",
+    "mocha": "^5.2.0",
+    "rollup": "^1.1.0",
+    "rollup-plugin-eslint": "^5.0.0"
   }
 }

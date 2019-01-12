@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Generator function to convert a NodeList object into an iterator
  * @param nodeList NodeList instance

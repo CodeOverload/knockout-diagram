@@ -13,7 +13,7 @@
   <script src="../node_modules/mocha/mocha.js"></script>
   <script src="../node_modules/chai/chai.js"></script>
 
-  <script src="../dist/knockout-diagram.js"></script>
+  <script type="text/javascript" src="../dist/kodiagram.umd.js"></script>
 
   <script>mocha.setup('bdd')</script>
   <script src="template-rendering.js"></script>
@@ -21,6 +21,7 @@
   <script src="arcs.js"></script>
   <script src="non-svg.js"></script>
   <script>
+    kd = kodiagram;
     mocha.checkLeaks();
     mocha.globals(['jQuery', 'ko']);
     var expect = chai.expect;

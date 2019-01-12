@@ -1,5 +1,3 @@
-"use strict";
-
 import Shape from "./shape";
 
 class Diamond extends Shape {

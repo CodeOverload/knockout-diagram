@@ -1,4 +1,4 @@
-"use strict";
+import * as ko from "knockout";
 
 import { parseSvgFragment } from "../utils-svg";
 import { iterateDomNodes } from "../utils-dom";

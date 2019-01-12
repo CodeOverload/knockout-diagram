@@ -1,5 +1,3 @@
-"use strict";
-
 import EndStyle from "./end-style";
 
 let none = new EndStyle("kd-arc-end-none");

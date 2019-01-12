@@ -1,4 +1,4 @@
-"use strict";
+import jQuery from 'jquery';
 
 import { iterateDomNodes } from "./utils-dom";
 
@@ -11,14 +11,16 @@ function convertSvgNode(node, templateDoc) {
 
   for (let child of iterateDomNodes(node.childNodes)) {
     switch (child.nodeType) {
-    case Node.ELEMENT_NODE:
-      let childEl = convertSvgNode(child, templateDoc);
-      el.appendChild(childEl);
-      break;
-    case Node.COMMENT_NODE:
-      let commentEl = templateDoc.createComment(child.nodeValue);
-      el.appendChild(commentEl);
-      break;
+      case Node.ELEMENT_NODE: {
+        let childEl = convertSvgNode(child, templateDoc);
+        el.appendChild(childEl);
+        break;
+      }
+      case Node.COMMENT_NODE: {
+        let commentEl = templateDoc.createComment(child.nodeValue);
+        el.appendChild(commentEl);
+        break;
+      }
     }
   }
 
