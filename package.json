@@ -11,6 +11,10 @@
     "build": "rollup -c",
     "build:watch": "rollup -c --watch"
   },
+  "peerDependencies": {
+    "jquery": "^2.1.4",
+    "knockout": "^3.3.0"
+  },
   "devDependencies": {
     "chai": "^3.2.0",
     "jquery": "^2.1.4",
