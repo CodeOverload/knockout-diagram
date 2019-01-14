@@ -11,6 +11,9 @@
     "build": "rollup -c",
     "build:watch": "rollup -c --watch"
   },
+  "files": [
+    "/dist"
+  ],
   "peerDependencies": {
     "jquery": "^3.3.1",
     "knockout": "^3.4.2"
