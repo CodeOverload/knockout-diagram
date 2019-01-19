@@ -6,7 +6,7 @@ Currently it only supports a small number of primitive shapes, but it can easily
 
 ## Introduction
 
-Knockout doesn't support svg out of the box because it's essentially a html library. This project replaces the native knockout template engine with a one that also supports svg. For example, you can do:
+Simple example:
 
 ```js
   function ViewModel() {
@@ -27,7 +27,7 @@ Knockout doesn't support svg out of the box because it's essentially a html libr
   </svg>
 ```
 
-This will render the two rectangles and a circle, along with their given labels. You can change the positions/parameters of these shapes in the view model, which will be reflected in the DOM. E.g:
+This will render two rectangles and a circle, along with their given labels. You can change the positions/parameters of these shapes in the view model, and these changes will automatically be reflected in the DOM:
 
 ```js
   var circle = this.shapes[0];
@@ -55,15 +55,18 @@ The x, y and xradius members are observables that are bound to the DOM. E.g. the
   </script>
 ```
 
-It's easy to add templates for new shapes or alter the existing ones to suit.
+The shape templates are now defined within the library, so there's no need to define these in your project markup.
+
+Note that knockout doesn't support svg out of the box because it's a html library. This project replaces the native knockout template engine with a one that also supports svg.
 
 ## Installation
 
 Clone the repo and build the js module using npm, grunt and babel:
 
 ```sh
-git clone https://github.com/CodeOverload/knockout-diagram.git
-cd knockout-diagram
+git clone https://github.com/CodeOverload/kodiagram.git
+cd kodiagram
+npm install
 npm run build
 ```
 
@@ -72,8 +75,6 @@ This builds dist/kodiagram.esm.js and dist/kodiagram.umd.js
 ## Getting Started
 
 See example/example.html
-
-## Motivation
 
 ### Knockout SVG support
 

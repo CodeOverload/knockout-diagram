@@ -9,7 +9,7 @@ import End from "./arcs/end";
 
 import endStyles from "./arcs/end-styles";
 
-import "./ko/svg-engine";
+import "./ko/string-template-engine";
 import "./ko/polygon-points";
 
 const ends = endStyles();
