@@ -1,6 +1,6 @@
 {
   "name": "kodiagram",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A set of components to create svg diagrams using knockout",
   "main": "dist/kodiagram.umd.js",
   "module": "dist/kodiagram.esm.js",
